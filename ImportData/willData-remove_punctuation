@@ -1,0 +1,30 @@
+libname mydata "/home/u63489350";
+
+data mydata.uniqlo;
+set cyData
+	jkData
+	rpData
+	willData;
+
+
+array vars[*] _all_; /* Define an array to loop through all variables */
+  
+  /* Loop through each variable and remove punctuation */
+  do i = 1 to dim(vars);
+  var_name = vname(vars[i]);
+  if var_name not in ('Income_RM', 'Age','q1') then do;
+    vars[i] = compress(vars[i], ' ', 'p'); /* Remove punctuation and compress spaces */
+   end;
+  end;
+
+  drop var_name;
+  drop i; /* Drop temporary variable */
+ run;
+
+proc print data=mydata.uniqlo;
+run;
+
+
+
+
+/*i didn't remove for income and age and q1(how often u visit) as it look confusing*/
