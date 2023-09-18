@@ -195,3 +195,22 @@ quit;
 
 proc print data=encoded_data;
 run;
+
+
+proc sql;
+ create table encoded_data as
+ select q10,
+        case
+         when q10 = "Family_or_Friends" then 0
+         when q10 = "Social_media" then 1
+         when q10 = "Advertisement" then 2
+         when q10 = "Email_subscription" then 3
+         when q10 = "All" then 4      
+        end as encoded_text
+ from mydata.uniqlo;
+quit;
+
+proc print data=encoded_data;
+run;
+
+
